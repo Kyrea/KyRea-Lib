@@ -16,9 +16,6 @@ android {
         compose = true
     }
 
-    // 2. Kotlin versiyonunla uyumlu Compose Compiler versiyonunu belirle
-    // (En baştaki KSP ayarlarından Kotlin 1.9.0 kullandığını biliyoruz,
-    // bu yüzden buraya 1.5.1 yazmamız tam uyum sağlayacaktır)
 
     defaultConfig {
         applicationId = "com.example.rea"
