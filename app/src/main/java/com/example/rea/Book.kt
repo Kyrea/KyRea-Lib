@@ -1,6 +1,5 @@
 package com.example.rea
 
-// Okuma durumlarını belirten enum — label'lar UI'da gösterilir
 enum class ReadingStatus(val label: String) {
     UNREAD("Başlanmadı"),
     READING("Okunuyor"),
@@ -16,7 +15,7 @@ data class Book(
     val description: String? = null,
     val isbn: String? = null,
 
-    // Okuma takibi
+
     val status: ReadingStatus = ReadingStatus.UNREAD,
     val progress: Int = 0,      // Kullanıcının kaldığı sayfa
     val totalPages: Int = 0,    // Toplam sayfa (0 = girilmemiş)

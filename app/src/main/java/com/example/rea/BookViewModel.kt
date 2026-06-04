@@ -16,11 +16,11 @@ class BookViewModel(private val repository: FileRepository) : ViewModel() {
     private val _searchResults = MutableStateFlow<List<ApiBook>>(emptyList())
     val searchResults: StateFlow<List<ApiBook>> = _searchResults
 
-    // Keşfet sekmesine dışarıdan sorgu yönlendirmek için (yazar adı kısayolu)
+
     private val _pendingSearchQuery = MutableStateFlow<String?>(null)
     val pendingSearchQuery: StateFlow<String?> = _pendingSearchQuery
 
-    // --- KEŞFET SİSTEMİ STATE'LERİ ---
+
     private var fullDiscoverPool = listOf<ApiBook>()
     private val _displayedDiscoverBooks = MutableStateFlow<List<ApiBook>>(emptyList())
     val displayedDiscoverBooks: StateFlow<List<ApiBook>> = _displayedDiscoverBooks
@@ -31,9 +31,6 @@ class BookViewModel(private val repository: FileRepository) : ViewModel() {
         initializeDiscoverFeed()
     }
 
-    // ─────────────────────────────────────────────
-    // Dışarıdan arama sorgusunu ayarla (yazar kısayolu)
-    // ─────────────────────────────────────────────
     fun updateSearchQuery(query: String) {
         _pendingSearchQuery.value = query
     }
@@ -44,9 +41,6 @@ class BookViewModel(private val repository: FileRepository) : ViewModel() {
         return q
     }
 
-    // ─────────────────────────────────────────────
-    // TAKİP: Book'u güncelleyip repository'e kaydet
-    // ─────────────────────────────────────────────
 
     fun updateBookTracking(
         book:       Book,
@@ -68,9 +62,6 @@ class BookViewModel(private val repository: FileRepository) : ViewModel() {
         }
     }
 
-    // ─────────────────────────────────────────────
-    // KEŞFET SİSTEMİ
-    // ─────────────────────────────────────────────
     private fun initializeDiscoverFeed() {
         viewModelScope.launch(Dispatchers.IO) {
             val randomKeywords = listOf(
@@ -117,9 +108,7 @@ class BookViewModel(private val repository: FileRepository) : ViewModel() {
         }
     }
 
-    // ─────────────────────────────────────────────
-    // DİĞER FONKSİYONLAR
-    // ─────────────────────────────────────────────
+
     fun searchBooks(query: String) {
         viewModelScope.launch {
             val results = repository.searchBooksFromApi(query, limit = 40)

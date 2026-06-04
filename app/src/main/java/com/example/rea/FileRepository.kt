@@ -16,7 +16,7 @@ class FileRepository(private val context: Context) {
     private val discoverFileName = "discover_cache.json"
     private val gson = Gson()
 
-    // YENİ: Dosya okuma/yazma işlerini yapacak özel arka plan işçimiz
+
     private val repoScope = CoroutineScope(Dispatchers.IO)
 
     private val _allBooks = MutableStateFlow<List<Book>>(emptyList())
@@ -26,7 +26,7 @@ class FileRepository(private val context: Context) {
     val discoverCache: StateFlow<List<ApiBook>> = _discoverCache
 
     init {
-        // YENİ: Uygulama açılışındaki okuma yükünü Main Thread'den aldık!
+
         repoScope.launch {
             loadBooks()
             loadDiscoverCache()
@@ -72,7 +72,7 @@ class FileRepository(private val context: Context) {
     }
 
     suspend fun saveBookWithDetails(apiBook: ApiBook) {
-        // YENİ: Arama ekranından kitap kaydederken API isteğini ve dosya yazmayı arka plana kilitliyoruz
+
         withContext(Dispatchers.IO) {
             var finalDescription: String? = "Bu kitap için bir açıklama bulunamadı."
             try {
@@ -105,23 +105,23 @@ class FileRepository(private val context: Context) {
             )
 
             currentBooks.add(newBook)
-            _allBooks.value = currentBooks // Arayüz anında güncellenir
+            _allBooks.value = currentBooks
 
             val file = File(context.filesDir, fileName)
-            file.writeText(gson.toJson(currentBooks)) // Dosyaya yazma arkada devam eder
+            file.writeText(gson.toJson(currentBooks))
         }
     }
 
-    // Mevcut bir kitabın verilerini (durum/sayfa) günceller
+
     fun updateBook(updatedBook: Book) {
         val currentBooks = _allBooks.value.toMutableList()
         val index = currentBooks.indexOfFirst { it.id == updatedBook.id }
 
         if (index != -1) {
             currentBooks[index] = updatedBook
-            _allBooks.value = currentBooks // Arayüz anında güncellenir
+            _allBooks.value = currentBooks
 
-            // Dosyaya yazma işlemini arka planda yap
+
             repoScope.launch {
                 val file = File(context.filesDir, fileName)
                 file.writeText(gson.toJson(currentBooks))
@@ -142,9 +142,8 @@ class FileRepository(private val context: Context) {
         )
 
         currentBooks.add(newBook)
-        _allBooks.value = currentBooks // Arayüz anında güncellenir
+        _allBooks.value = currentBooks
 
-        // YENİ: Manuel eklenen kitabı dosyaya yazma işini arka plana attık
         repoScope.launch {
             val file = File(context.filesDir, fileName)
             file.writeText(gson.toJson(currentBooks))

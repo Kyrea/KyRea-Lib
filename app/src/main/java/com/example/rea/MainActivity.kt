@@ -1,5 +1,6 @@
 package com.example.rea
 
+
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -46,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.delay
+
 
 
 // ─────────────────────────────────────────────
@@ -606,8 +608,7 @@ fun SearchScreen(viewModel: BookViewModel) {
     var activeGenre  by remember { mutableStateOf("Tümü") }
     var genreLoading by remember { mutableStateOf(false) }
 
-    // Özel tür ekleme için state'ler
-    // Kullanıcı tarafından eklenen türler: label -> apiQuery
+
     var customGenres by remember { mutableStateOf(linkedMapOf<String, String>()) }
     var showAddGenreDialog by remember { mutableStateOf(false) }
 
@@ -676,7 +677,7 @@ fun SearchScreen(viewModel: BookViewModel) {
             Text("Keşfet", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = LocalReaColors.current.headerText)
             Spacer(Modifier.height(14.dp))
 
-            // ── Arama kutusu
+            // Arama kutusu
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -747,7 +748,7 @@ fun SearchScreen(viewModel: BookViewModel) {
 
             Spacer(Modifier.height(12.dp))
 
-            // ── Tür etiketleri + "+" butonu
+            //  Tür etiketleri + "+" butonu
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -779,7 +780,7 @@ fun SearchScreen(viewModel: BookViewModel) {
                     }
                 }
 
-                // ── "+" Tür Ekle butonu
+                // "+" Tür Ekle butonu
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(20.dp))
@@ -1116,9 +1117,7 @@ fun DiscoverBookCard(apiBook: ApiBook, onClick: () -> Unit) {
     }
 }
 
-// ─────────────────────────────────────────────
-// KİTAP TAKİP DİYALOĞU (Kütüphane için)
-// ─────────────────────────────────────────────
+
 @Composable
 fun BookTrackingDialog(
     book:         Book,
@@ -1147,7 +1146,7 @@ fun BookTrackingDialog(
                     overflow   = TextOverflow.Ellipsis
                 )
                 Spacer(Modifier.height(2.dp))
-                // ── Tıklanabilir yazar adı
+
                 Text(
                     text           = book.author,
                     fontSize       = 13.sp,
@@ -1163,7 +1162,7 @@ fun BookTrackingDialog(
         text = {
             LazyColumn(verticalArrangement = Arrangement.spacedBy(18.dp)) {
 
-                // ── 1. DURUM SEÇİCİ
+
                 item {
                     TrackingSection(title = "OKUMA DURUMU") {
                         Row(
@@ -1196,7 +1195,6 @@ fun BookTrackingDialog(
                     }
                 }
 
-                // ── 2. SAYFA TAKİBİ
                 item {
                     TrackingSection(title = "SAYFA TAKİBİ") {
                         Row(
@@ -1259,7 +1257,7 @@ fun BookTrackingDialog(
                     }
                 }
 
-                // ── 3. PUANLAMA — dark modda belirgin yıldızlar
+
                 item {
                     TrackingSection(title = "PUANLAMA") {
                         Row(
@@ -1305,7 +1303,7 @@ fun BookTrackingDialog(
                     }
                 }
 
-                // ── 4. NOTLAR
+
                 item {
                     TrackingSection(title = "NOTLARIM") {
                         Box(
@@ -1366,7 +1364,7 @@ fun BookTrackingDialog(
     )
 }
 
-// ── Bölüm başlığı + içerik wrapper
+
 @Composable
 fun TrackingSection(title: String, content: @Composable ColumnScope.() -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -1381,7 +1379,7 @@ fun TrackingSection(title: String, content: @Composable ColumnScope.() -> Unit) 
     }
 }
 
-// ── Sayı giriş alanı (sayfa için)
+
 @Composable
 fun TrackingNumberField(value: String, onValueChange: (String) -> Unit, placeholder: String) {
     Box(
@@ -1409,9 +1407,7 @@ fun TrackingNumberField(value: String, onValueChange: (String) -> Unit, placehol
     }
 }
 
-// ─────────────────────────────────────────────
-// KEŞFET İÇİN SADECE "EKLE" DİYALOĞU
-// ─────────────────────────────────────────────
+
 @Composable
 fun BookDetailDialog(
     title:         String,
@@ -1435,7 +1431,7 @@ fun BookDetailDialog(
                     color      = MaterialTheme.colorScheme.onSurface
                 )
                 Spacer(Modifier.height(4.dp))
-                // ── Tıklanabilir yazar adı
+
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text           = author,
