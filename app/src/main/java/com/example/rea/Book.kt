@@ -17,8 +17,8 @@ data class Book(
 
 
     val status: ReadingStatus = ReadingStatus.UNREAD,
-    val progress: Int = 0,      // Kullanıcının kaldığı sayfa
-    val totalPages: Int = 0,    // Toplam sayfa (0 = girilmemiş)
-    val rating: Int = 0,        // 1–5 yıldız (0 = puanlanmamış)
-    val notes: String = ""      // Okuyucu notu
+    val progress: Int = 0,      
+    val totalPages: Int = 0,    
+    val rating: Int = 0,        
+    val notes: String = ""      
 )
